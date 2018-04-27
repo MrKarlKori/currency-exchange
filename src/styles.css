@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+    margin: 0;
+    padding-top: 50px;
+}
+header {
+    position: fixed;
+    background-color: rgba(33, 33, 33, 0.1);
+    height: 50px;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 20;
+}
+nav, nav button {
+    height: 100%;   
+}
+.active {
+    background-color: #D5CFDE;
+}
