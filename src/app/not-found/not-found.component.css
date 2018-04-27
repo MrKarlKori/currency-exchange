@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: calc(100vh - 50px);
+}
+.error-404 {
+    color: rgba(200, 12, 23, 0.8);
+    font-size: 10rem;
+}
+.description {
+    font-size: 2rem;
+}
+button {
+    margin-top: 25px;
+}

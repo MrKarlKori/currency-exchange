@@ -1,0 +1,12 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+main {
+    border-left: 1px rgba(99,99,99, 0.2) solid;
+    border-right: 1px rgba(99,99,99, 0.2) solid;
+    height: calc(100vh - 50px);
+    width: 80vw;
+    padding: 0 10px;
+    background-color: rgba(12,12,100, 0.1);
+}
