@@ -15,13 +15,11 @@ import { MatCardModule } from '@angular/material/card';
 import { AppComponent } from './app/app.component';
 import { ConvertComponent } from './convert/convert.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { IndexComponent } from './index/index.component';
 
 import { HttpService } from './http.service';
 
 const appRoutes: Routes = [
-  {path: '', component: IndexComponent},
-  {path: 'convert', component: ConvertComponent},
+  {path: '', component: ConvertComponent},
   {path: '**', component: NotFoundComponent}
 ]
 
@@ -29,8 +27,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     ConvertComponent,
-    NotFoundComponent,
-    IndexComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

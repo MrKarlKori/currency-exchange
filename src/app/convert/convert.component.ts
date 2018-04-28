@@ -61,7 +61,7 @@ export class ConvertComponent implements OnInit {
     let to:string = place !== 'first' ? this.selectFirst : this.selectSecond;
     let amount:number = place === 'first' ? +this.inputFirst : +this.inputSecond;
     if (!amount) {
-      amount = place === 'first' ? this.inputSecond : this.inputFirst;
+      amount = place === 'first' ? +this.inputSecond : +this.inputFirst;
       place = place === 'first' ? 'second' : 'first';
       let temp = from;
       from = to;
