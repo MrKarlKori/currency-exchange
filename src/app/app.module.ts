@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app/app.component';
 import { ConvertComponent } from './convert/convert.component';
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatCardModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],

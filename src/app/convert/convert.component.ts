@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-import { Subscriber } from 'rxjs/Subscriber';
+import { NgForm } from '@angular/forms';
+import { Courses } from '../interfaces/courses';
+import { Currencies } from '../interfaces/currencies';
 
 @Component({
   selector: 'app-convert',
@@ -10,8 +12,6 @@ import { Subscriber } from 'rxjs/Subscriber';
 })
 export class ConvertComponent implements OnInit {
 
-  ONE_HOUR_IN_MILLISECONDS:number = 3600000;
-  
   currencies:any;
   courses:any;
 
@@ -32,13 +32,12 @@ export class ConvertComponent implements OnInit {
       this.courses = JSON.parse(sessionStorage.getItem('courses'));
       this.currencies = JSON.parse(sessionStorage.getItem('currencies'));
     } else {
-      this.httpService.getCourses().subscribe(data => {
+      this.httpService.getCourses().subscribe((data:Courses) => {
         if (data.success) {
           this.courses = data;
           sessionStorage.setItem('courses', JSON.stringify(data));
-
           if (!sessionStorage.getItem('currencies')) {
-            this.httpService.getCurrencies().subscribe(data => {
+            this.httpService.getCurrencies().subscribe((data:Currencies) => {
               if (data.success) {
                 this.currencies = [];
                 let actualCurrencies:any = Object.keys(this.courses.rates);
@@ -52,16 +51,15 @@ export class ConvertComponent implements OnInit {
               } else this.error = true;
             });
           }
-
         } else this.error = true;
       });
     }
   }
 
-  changed(value, place) {
+  changed(place:string):void {
     let from:string = place === 'first' ? this.selectFirst : this.selectSecond;
     let to:string = place !== 'first' ? this.selectFirst : this.selectSecond;
-    let amount:number = place === 'first' ? this.inputFirst : this.inputSecond;
+    let amount:number = place === 'first' ? +this.inputFirst : +this.inputSecond;
     if (!amount) {
       amount = place === 'first' ? this.inputSecond : this.inputFirst;
       place = place === 'first' ? 'second' : 'first';
@@ -69,12 +67,27 @@ export class ConvertComponent implements OnInit {
       from = to;
       to = temp;
     }
-    if (!from || !to || !amount) return;
-    let rateFrom:number = this.courses.rates[from];
-    let rateTo:number = this.courses.rates[to];
-    let result:number = +(+amount / +rateFrom * +rateTo).toFixed(3);
+    if (!from || !to || !amount || !this.isPositiveNumber(amount)) return;
+    let rateFrom:number = +this.courses.rates[from];
+    let rateTo:number = +this.courses.rates[to];
+    let result:number = +(amount / rateFrom * rateTo).toFixed(3);
     if (place !== 'first') {
       this.inputFirst = result;
     } else this.inputSecond = result;
+  }
+
+  isPositiveNumber(num:number):boolean {
+    return typeof num === 'number' && !isNaN(num) && isFinite(num) && num >= 0;
+  }
+
+  reset(place:string):void {
+    if (place ==='first') {
+      this.selectFirst = null;
+      this.inputFirst = null;
+    }
+    else {
+      this.selectSecond = null;
+      this.inputSecond = null;
+    }
   }
 }
